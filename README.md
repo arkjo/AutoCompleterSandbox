@@ -11,18 +11,19 @@ Setup
 -----
 
 * clone this repository
-* run `composer install`
-* run `bin/console doctrine:database:create`
-* run `bin/console doctrine:schema:update --force`
-* run `bin/console faker:populate`
-* run `bin/console server:run`
-
-After the last command, you should be able to browse the application in `http://127.0.0.1:8000`.
+* run `export HOST_UID=$UID`
+* run `docker-compose build`
+* run `docker-compose up -d`
+* run `docker exec -ti autocompletersandbox_php_1 bin/console faker:populate`
+* you can login the container using `docker exec -ti autocompletersandbox_php_1 bash`
+* map in your hosts file `autocompletersandbox.local` on 127.0.0.1
+* you'll then be able to browser `http://autocompletersandbox.local:8080`
 
 Testing
 -------
 
-You can test the application running `bin/phpunit`.
+Run `docker exec -ti autocompletersandbox_phpunit_1 bin/console faker:populate`.
+Then you can test the application running `docker exec -ti autocompletersandbox_phpunit_1 phpunit`.
 
 Be aware, since testing are really basic and based on some hard-coded values in database.
 If tests fail, try to drop database, re-create it and re-populate.
@@ -33,7 +34,7 @@ The Demo
 This demo shows a list of books, and let you add a new book. When inserting a new book, you can autocomplete
 the author by name.
 
-All the code shoul be self-explainatory, and it's kept to bare minimum for the purposes of this demo.
+All the code should be self-explainatory, and it's kept to bare minimum for the purposes of this demo.
 The only exception is the "add new" feature (see next point).
 
 Add new

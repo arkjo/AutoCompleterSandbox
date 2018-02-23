@@ -1,9 +1,0 @@
-services:
-    app.repository.author:
-        class: AppBundle\Repository\AuthorRepository
-        factory: ['@doctrine', getRepository]
-        arguments: ['AppBundle:Author']
-    app.repository.book:
-        class: AppBundle\Repository\BookRepository
-        factory: ['@doctrine', getRepository]
-        arguments: ['AppBundle:Book']

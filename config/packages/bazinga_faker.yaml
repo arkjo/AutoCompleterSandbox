@@ -1,0 +1,9 @@
+bazinga_faker:
+    orm: doctrine
+    entities:
+        App\Entity\Author:
+            number: 100
+            custom_formatters:
+                name: { method: name }
+        App\Entity\Book:
+            number: 5

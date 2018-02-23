@@ -1,0 +1,64 @@
+version: '3.3'
+services:
+    database:
+        build: config/docker/mysql
+        ports:
+            - 3306:3306
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+    php:
+        build:
+            context: config/docker/php-fpm
+            args:
+                HOST_UID: ${HOST_UID}
+        volumes:
+            - ./:/user/sandbox
+            - $HOME/.bashrc:/user/.bashrc
+            - $HOME/.composer:/user/.composer
+            - $HOME/.gitignore:/user/.gitignore
+            - $HOME/.vimrc:/user/.vimrc
+        working_dir: /user/sandbox
+        ports:
+            - 9000:9000
+        links:
+            - database
+        environment:
+            - PATH=./bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            - COLUMNS=190
+            - LINES=42
+            - APP_ENV=dev
+            - APP_DEBUG=1
+            - APP_DATABASE_URL=mysql://root:root@database/autocompleter_sandbox?charset=utf8mb4
+            - APP_SECRET=ThisIsNotReallySecretButOK
+    nginx:
+        build: config/docker/nginx
+        ports:
+            - 8080:80
+        links:
+            - php
+        volumes:
+            - ./:/user/sandbox
+    phpunit:
+        build:
+            context: config/docker/php-cli
+            args:
+                HOST_UID: ${HOST_UID}
+        volumes:
+            - ./:/user/sandbox
+            - $HOME/.bashrc:/user/.bashrc
+            - $HOME/.composer:/user/.composer
+            - $HOME/.gitignore:/user/.gitignore
+            - $HOME/.vimrc:/user/.vimrc
+        working_dir: /user/sandbox
+        tty: true
+        links:
+            - database
+        environment:
+            - PATH=./bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            - COLUMNS=190
+            - LINES=42
+            - APP_ENV=test
+            - APP_DEBUG=1
+            - APP_DATABASE_URL=mysql://root:root@database/autocompleter_sandbox_test?charset=utf8mb4
+            - APP_SECRET=ThisIsNotReallySecretButOK
+

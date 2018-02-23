@@ -1,0 +1,12 @@
+framework:
+    csrf_protection: ~
+    form: ~
+    fragments: ~
+    http_method_override: true
+    php_errors:
+        log: true
+    secret: '%env(APP_SECRET)%'
+    session:
+        handler_id: ~
+    trusted_hosts: ~
+
