@@ -4,30 +4,30 @@ namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AuthorControllerTest extends WebTestCase
+final class AuthorControllerTest extends WebTestCase
 {
-    public function testSearch()
+    public function testSearch(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/search-author?q=a');
+        $client->request('GET', '/search-author?q=a');
         $this->assertTrue($client->getResponse()->isOk());
     }
 
-    public function testGetOk()
+    public function testGetOk(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/get-author/1');
+        $client->request('GET', '/get-author/1');
         $this->assertTrue($client->getResponse()->isOk());
     }
 
-    public function testGetInvalid()
+    public function testGetInvalid(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/get-author/0');
+        $client->request('GET', '/get-author/0');
         $this->assertTrue($client->getResponse()->isClientError());
     }
 
-    public function testNew()
+    public function testNew(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/new-author');
@@ -40,7 +40,7 @@ class AuthorControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isOk());
     }
 
-    public function testNewAjax()
+    public function testNewAjax(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/new-author');

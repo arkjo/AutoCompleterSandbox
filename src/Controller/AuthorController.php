@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class AuthorController extends AbstractController
 {
@@ -16,7 +17,7 @@ final class AuthorController extends AbstractController
      * @Route("/search-author", name="search_author", defaults={"_format"="json"})
      * @Method("GET")
      */
-    public function searchAction(AuthorRepository $repo, Request $request)
+    public function searchAction(AuthorRepository $repo, Request $request): Response
     {
         $qs = $request->query->get('q', $request->query->get('term', ''));
         $authors = $repo->findLike($qs);
@@ -28,7 +29,7 @@ final class AuthorController extends AbstractController
      * @Route("/get-author/{id}", name="get_author", defaults={"_format"="json"})
      * @Method("GET")
      */
-    public function getAction(int $id = null, AuthorRepository $repo)
+    public function getAction(int $id = null, AuthorRepository $repo): Response
     {
         if (null === $author = $repo->find($id)) {
             throw $this->createNotFoundException();
@@ -43,7 +44,7 @@ final class AuthorController extends AbstractController
      * @Route("/new-author", name="new_author")
      * @Method({"GET", "PUT"})
      */
-    public function newAction(AuthorRepository $repo, Request $request)
+    public function newAction(AuthorRepository $repo, Request $request): Response
     {
         $author = new Author();
         $form = $this->createForm(AuthorType::class, $author, [

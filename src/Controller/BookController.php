@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class BookController extends AbstractController
 {
@@ -16,7 +17,7 @@ final class BookController extends AbstractController
      * @Route("/new-book", name="new_book")
      * @Method({"GET", "PUT"})
      */
-    public function newAction(BookRepository $repo, Request $request)
+    public function newAction(BookRepository $repo, Request $request): Response
     {
         $book = new Book();
         $form = $this->createForm(BookType::class, $book, ['method' => 'PUT']);
@@ -34,7 +35,7 @@ final class BookController extends AbstractController
      * @Route("/edit-book/{id}", name="edit_book")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Book $book, BookRepository $repo, Request $request)
+    public function editAction(Book $book, BookRepository $repo, Request $request): Response
     {
         $form = $this->createForm(BookType::class, $book);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {

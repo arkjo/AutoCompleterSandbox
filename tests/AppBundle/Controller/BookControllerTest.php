@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class BookControllerTest extends WebTestCase
+final class BookControllerTest extends WebTestCase
 {
-    public function testNew()
+    public function testNew(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/new-book');
@@ -16,11 +16,11 @@ class BookControllerTest extends WebTestCase
             'book[author]' => '1',
         ]);
         $client->submit($form);
-        $crawler = $client->followRedirect();
+        $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
     }
 
-    public function testEdit()
+    public function testEdit(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
@@ -30,7 +30,7 @@ class BookControllerTest extends WebTestCase
             'book[title]' => 'Changed title',
         ]);
         $client->submit($form);
-        $crawler = $client->followRedirect();
+        $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
     }
 }

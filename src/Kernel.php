@@ -19,9 +19,6 @@ class Kernel extends BaseKernel
         return $this->getProjectDir().'/var/cache/'.$this->environment;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getLogDir(): string
     {
         return $this->getProjectDir().'/var/log';
@@ -29,7 +26,7 @@ class Kernel extends BaseKernel
 
     public function registerBundles(): iterable
     {
-        $contents = require dirname(__DIR__).'/config/bundles.php';
+        $contents = require \dirname(__DIR__).'/config/bundles.php';
         foreach ($contents as $class => $envs) {
             if (isset($envs['all']) || isset($envs[$this->environment])) {
                 yield new $class();
@@ -37,9 +34,6 @@ class Kernel extends BaseKernel
         }
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $container->setParameter('container.autowiring.strict_mode', true);
@@ -53,9 +47,6 @@ class Kernel extends BaseKernel
         $loader->load($confDir.'/services_'.$this->environment.self::CONFIG_EXTS, 'glob');
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
         $confDir = $this->getProjectDir().'/config';

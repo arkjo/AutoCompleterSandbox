@@ -5,8 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Book.
- *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  */
@@ -36,42 +34,27 @@ class Book
      */
     private $author;
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param Author $author
-     */
-    public function setAuthor($author)
+    public function setAuthor(?Author $author): void
     {
         $this->author = $author;
     }
 
-    /**
-     * @return Author
-     */
-    public function getAuthor()
+    public function getAuthor(): ?Author
     {
         return $this->author;
     }
