@@ -3,7 +3,7 @@ PUGXAutoCompleter Sandbox
 
 This is a demo project for [PUGXAutoCompleterBundle](https://github.com/PUGX/PUGXAutoCompleterBundle).
 
-It's basically a [Symfony Standard Edition](https://github.com/symfony/symfony-standard) with some small additions.
+It's basically a tipical Symfony project with some small additions.
 
 It's using [Select2 3.5.3](http://select2.github.io/select2/) for JavaScript part. **Not** working with Select2 4.
 
